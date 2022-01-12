@@ -12,20 +12,9 @@ function forEach(array, callback) {}
  Фишка задания сделать свою реализацию, чтобы понять, как он работает под капотом. Для перебора советую использовать for цикл
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
-let array = [1, 2, 3];
-function map(array, callback) {
-  let newArr = array;
 
-  for (let i = 0; i < array.length; i++) {
-    newArr.push(callback(array[i], i, array));
-  }
-  return newArr;
-}
+function map(array, callback) {}
 
-const mapResult = map(array, function (item, index, arr) {
-  return item * 4;
-});
-console.log(mapResult);
 /* Функция принимает в себе первым аргументом массив, вторым функцию которая будет вызываться для каждого элемента массива
  вот документация https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  Это используется для удобного быстрого перебора массива. Функция должна ВЕРНУТЬ НОВЫЙ массив, который включает в себя элементы только те, для которых callback вернул true.
