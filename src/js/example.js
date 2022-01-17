@@ -21,11 +21,6 @@ function map(array, callback) {
   }
   return newArray;
 }
-// for (i in array) {
-//     newArray.push(callback(array[i], i, array));
-//   }
-//   return newArray; --- еще 1 вариант
-// }
 
 const mapResult = map(array, function (item, index, array) {
   return item * 4;
@@ -35,15 +30,21 @@ console.log(mapResult); // => [4, 8, 12]
 
 function filter(array, callback) {
   let newArray = [];
-
   for (let i = 0; i < array.length; i++) {
-    // newArray.push(callback(array[i], i, array));
-    let back = callback(array[i], i, array);
-    if (back === true) {
+    if (callback(array[i], i, array)) {
       newArray.push(array[i]);
     }
   }
   return newArray;
+
+  // for (let i = 0; i < array.length; i++) {
+  //   // newArray.push(callback(array[i], i, array));
+  //   let back = callback(array[i], i, array);
+  //   if (back === true) {
+  //     newArray.push(array[i]);
+  //   }
+  // }
+  // return newArray;
 }
 const filterResult = filter(array, (item, index, array) => {
   return item > 1;
@@ -51,7 +52,14 @@ const filterResult = filter(array, (item, index, array) => {
 
 console.log(filterResult); // => [2, 3]
 
-function reduce(array, callback, initialValue) {}
+function reduce(array, callback, initialValue) {
+  let result = initialValue;
+
+  for (let i = 0; i < array.length; i++) {
+    result = callback(result, array[i], i, array);
+  }
+  return result;
+}
 const reduceResult = reduce(
   array,
   (previous, current, index, array) => {
@@ -63,17 +71,13 @@ const reduceResult = reduce(
 console.log(reduceResult); // => 6
 
 function some(array, callback) {
-  let newArray = [];
-
+  // let newArray = [];
   for (let i = 0; i < array.length; i++) {
-    newArray.push(callback(array[i], i, array));
-    if (array[i] !== false) {
+    if (callback(array[i], i, array)) {
       return true;
     }
-    return false;
   }
-
-  return newArray;
+  return false;
 }
 
 const someResult = some(array, (item, index, array) => {
@@ -81,6 +85,15 @@ const someResult = some(array, (item, index, array) => {
 });
 
 console.log(someResult); // => true
+
+function every(array, callback) {
+  for (let i = 0; i < array.length; i++) {
+    if (callback(array[i], i, array)) {
+      return false;
+    }
+  }
+  return true;
+}
 
 const everyResult = every(array, (item, index, array) => {
   return item > 2;
