@@ -88,7 +88,8 @@ console.log(someResult); // => true
 
 function every(array, callback) {
   for (let i = 0; i < array.length; i++) {
-    if (callback(array[i], i, array)) {
+    let back = callback(array[i], i, array);
+    if (back === false) {
       return false;
     }
   }
